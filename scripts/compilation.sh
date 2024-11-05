@@ -296,6 +296,9 @@ compile_uboot()
 
 compile_kernel()
 {
+	display_alert "Waiting for lk-reducer. Press ENTER to continue."
+	read
+
 	if [[ $CLEAN_LEVEL == *make* ]]; then
 		display_alert "Cleaning" "$LINUXSOURCEDIR" "info"
 		(cd ${LINUXSOURCEDIR}; make ARCH="${ARCHITECTURE}" clean >/dev/null 2>&1)
@@ -481,6 +484,9 @@ compile_kernel()
 	hash_watch_1=$(find "${EXTER}/patch/kernel/${KERNELPATCHDIR}" -maxdepth 1 -printf '%s %P\n' 2> /dev/null | sort)
 	hash_watch_2=$(cat "${EXTER}/config/kernel/${LINUXCONFIG}.config")
 	echo "${hash_watch_1}${hash_watch_2}" | git hash-object --stdin >> "${EXTER}/cache/hash/linux-image-${BRANCH}-${LINUXFAMILY}.githash"
+
+	display_alert "Close lk-reducer. Press ENTER to contine."
+	read
 }
 
 
