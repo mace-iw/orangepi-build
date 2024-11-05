@@ -406,9 +406,9 @@ compile_kernel()
 	xz < .config > "${sources_pkg_dir}/usr/src/${LINUXCONFIG}_${version}_${REVISION}_config.xz"
 
 	echo -e "\n\t== kernel ==\n" >> "${DEST}"/debug/compilation.log
-	eval CCACHE_BASEDIR="$(pwd)" env PATH="${toolchain}:${PATH}" \
+	eval env PATH="${toolchain}:${PATH}" \
 		'make $CTHREADS ARCH=$ARCHITECTURE \
-		CROSS_COMPILE="$CCACHE $KERNEL_COMPILER" \
+		CROSS_COMPILE="$KERNEL_COMPILER" \
 		$SRC_LOADADDR \
 		LOCALVERSION="-$LINUXFAMILY" \
 		$KERNEL_IMAGE_TYPE modules dtbs 2>>$DEST/debug/compilation.log' \
