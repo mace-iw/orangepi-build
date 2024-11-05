@@ -14,7 +14,7 @@ case $BRANCH in
 	legacy)
 
 		LINUXFAMILY=sun8i
-		KERNELBRANCH="branch:orange-pi-3.4-sun8i"
+		KERNELBRANCH="branch:orange-pi-3.4-sun8i-reduced"
 		KERNELPATCHDIR='sun8i-'$BRANCH
 		BOOTENV_FILE='sun8i-legacy.txt'
 		KERNEL_COMPILER="arm-linux-gnueabihf-"
