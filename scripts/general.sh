@@ -1529,10 +1529,10 @@ prepare_host()
 	HOST_DEPENDENCIES_READY
 
 	# sync clock
-	if [[ $SYNC_CLOCK != no ]]; then
-		display_alert "Syncing clock" "${NTP_SERVER:-pool.ntp.org}" "info"
-		ntpdate -s "${NTP_SERVER:-pool.ntp.org}"
-	fi
+	# if [[ $SYNC_CLOCK != no ]]; then
+	# 	display_alert "Syncing clock" "${NTP_SERVER:-pool.ntp.org}" "info"
+	# 	ntpdate -s "${NTP_SERVER:-pool.ntp.org}"
+	# fi
 
 	# create directory structure
 	mkdir -p $SRC/output $EXTER/cache $USERPATCHES_PATH
