@@ -370,6 +370,9 @@ create_linux-source_package ()
 
 compile_kernel()
 {
+	display_alert "Waiting for lk-reducer. Press ENTER to continue."
+	read
+
 	if [[ $CLEAN_LEVEL == *make* ]]; then
 		display_alert "Cleaning" "$LINUXSOURCEDIR" "info"
 		(cd ${LINUXSOURCEDIR}; make ARCH="${ARCHITECTURE}" clean >/dev/null 2>&1)
@@ -575,6 +578,8 @@ CUSTOM_KERNEL_CONFIG
 	#hash_watch_2=$(cat "${EXTER}/config/kernel/${LINUXCONFIG}.config")
 	#echo "${hash_watch_1}${hash_watch_2}" | improved_git hash-object --stdin >> "${HASHTARGET}.githash"
 
+	display_alert "Close lk-reducer. Press ENTER to contine."
+	read
 }
 
 
