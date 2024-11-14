@@ -490,9 +490,9 @@ CUSTOM_KERNEL_CONFIG
 	fi
 
 	echo -e "\n\t== kernel ==\n" >> "${DEST}"/${LOG_SUBPATH}/compilation.log
-	eval CCACHE_BASEDIR="$(pwd)" env PATH="${toolchain}:${PATH}" \
+	eval env PATH="${toolchain}:${PATH}" \
 		'make $CTHREADS ARCH=$ARCHITECTURE \
-		CROSS_COMPILE="$CCACHE $KERNEL_COMPILER" \
+		CROSS_COMPILE="$KERNEL_COMPILER" \
 		$SRC_LOADADDR \
 		LOCALVERSION="-$LINUXFAMILY" \
 		$KERNEL_IMAGE_TYPE ${KERNEL_EXTRA_TARGETS:-modules dtbs} 2>>$DEST/${LOG_SUBPATH}/compilation.log' \
