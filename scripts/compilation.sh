@@ -373,10 +373,16 @@ compile_kernel()
 	display_alert "Waiting for lk-reducer. Press ENTER to continue."
 	read
 
+	display_alert "1."
+	read
+
 	if [[ $CLEAN_LEVEL == *make* ]]; then
 		display_alert "Cleaning" "$LINUXSOURCEDIR" "info"
 		(cd ${LINUXSOURCEDIR}; make ARCH="${ARCHITECTURE}" clean >/dev/null 2>&1)
 	fi
+
+	display_alert "2."
+	read
 
 	if [[ $USE_OVERLAYFS == yes ]]; then
 		local kerneldir
@@ -387,6 +393,9 @@ compile_kernel()
 	cd "${kerneldir}" || exit
 
 	rm -f localversion
+
+	display_alert "3."
+	read
 
 	# read kernel version
 	local version hash
@@ -411,6 +420,9 @@ compile_kernel()
 
 	# create patch for manual source changes in debug mode
 	[[ $CREATE_PATCHES == yes ]] && userpatch_create "kernel"
+
+	display_alert "4."
+	read
 
 	# re-read kernel version after patching
 	local version
@@ -443,6 +455,7 @@ compile_kernel()
 		else
 			display_alert "Using kernel config file" "${EXTER}/config/kernel/$LINUXCONFIG.config" "info"
 			cp -p "${EXTER}/config/kernel/${LINUXCONFIG}.config" .config
+			echo cp -p "${EXTER}/config/kernel/${LINUXCONFIG}.config" .config
 		fi
 	fi
 
@@ -453,6 +466,9 @@ Before any olddefconfig any Kconfig make is called.
 A good place to customize the .config directly.
 CUSTOM_KERNEL_CONFIG
 
+
+	display_alert "5."
+	read
 
 	# hack for deb builder. To pack what's missing in headers pack.
 	cp "$EXTER"/patch/misc/headers-debian-byteshift.patch /tmp
@@ -486,11 +502,17 @@ CUSTOM_KERNEL_CONFIG
 		fi
 	fi
 
+	display_alert "6."
+	read
+
 	# create linux-source package - with already patched sources
 	# We will build this package first and clear the memory.
 	if [[ $BUILD_KSRC != no ]]; then
 		create_linux-source_package
 	fi
+
+	display_alert "7."
+	read
 
 	echo -e "\n\t== kernel ==\n" >> "${DEST}"/${LOG_SUBPATH}/compilation.log
 	eval env PATH="${toolchain}:${PATH}" \
@@ -521,6 +543,9 @@ CUSTOM_KERNEL_CONFIG
 	#fi
 
 	display_alert "Creating packages"
+
+	display_alert "8."
+	read
 
 	# produce deb packages: image, headers, firmware, dtb
 	echo -e "\n\t== deb packages: image, headers, firmware, dtb ==\n" >> "${DEST}"/${LOG_SUBPATH}/compilation.log
